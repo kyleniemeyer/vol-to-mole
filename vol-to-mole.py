@@ -114,12 +114,69 @@ def volToMole(equil):
     print '{:.4f} n2'.format(countO * 3.76)
 
 
+def moleToVol():
+    """Calculates volume fractions from mole fractions.
+    """
+    
+    print 'Enter species followed by mole fraction (e.g., nc7h16 0.2)'
+    print 'Hit return when complete.'
+    
+    specs = []
+    nums = []
+    while True:
+        sp = None
+        num = None
+        while not num:
+            try:
+                line = raw_input('Entry: ')
+                if not line: break
+                sp, num = line.split()
+                num = float(num)
+                
+                # check if species in list
+                density = specList[sp].density
+            except ValueError:
+                print 'Number invalid'
+            except KeyError:
+                print 'Error: species ' + sp + ' not found.'
+        if not sp: break
+        
+        #num = num / specList[sp].density
+        
+        specs.append(sp)
+        nums.append(num)
+    
+    # calculate volume fractions
+    moleFrac = nums[:]
+    
+    sumMole = 0.0
+    for sp, X in zip(specs, moleFrac):
+        sumMole = sumMole + (X * specList[sp].mw)
+    
+    # get mass fraction divided by density
+    massFrac = []
+    for sp, X in zip(specs, moleFrac):
+        Y = (X * specList[sp].mw) / sumMole
+        
+        massFrac.append(Y / specList[sp].density)
+    
+    volFrac = [n / sum(massFrac) for n in massFrac]
+    
+    print 'Volume fractions:'
+    for sp, n in zip(specs, volFrac):
+        print '{:.4f} '.format(n) + sp
+    
+
+
 if __name__ == "__main__":
     import sys
     
     if len(sys.argv) == 1:
         volToMole(False)
     elif len(sys.argv) == 2:
-        volToMole(True)
+        if sys.argv[1].lower() == 'equil':
+            volToMole(True)
+        elif sys.argv[1].lower() == 'volume':
+            moleToVol()
     else:
         print 'Incorrect number of arguments. Either zero or one (equil)'
