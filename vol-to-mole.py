@@ -1,8 +1,12 @@
 #! /usr/bin/env python
 
+# species densities via NIST Chemistry Webbook and Yaws' Handbook (via Knovel) 
+# at room tempetature (298 K and 1 atm)
+
 import readline
 from collections import namedtuple
 
+# density in units kg/m^3
 Species = namedtuple('Species', 'mw, density, numC, numH, numO')
 specList = {
     'nc7h16': Species(100.21, 679.72, 7, 16, 0),
@@ -33,7 +37,21 @@ specList = {
     'c5h10-2': Species(70.13, 650.0, 5, 10, 0),
     '2-pentene': Species(70.13, 650.0, 5, 10, 0),
     'c6h12-1': Species(84.1608, 673.0, 6, 12, 0),
-    '1-hexene': Species(84.1608, 673.0, 6, 12, 0)
+    '1-hexene': Species(84.1608, 673.0, 6, 12, 0),
+    'ch4o': Species(32.0419, 786.5, 1, 4, 1),
+    'ch3oh': Species(32.0419, 786.5, 1, 4, 1),
+    'methanol': Species(32.0419, 786.5, 1, 4, 1),
+    'c2h6o': Species(46.0684, 785.6, 2, 6, 1),
+    'c2h5oh': Species(46.0684, 785.6, 2, 6, 1),
+    'ethanol': Species(46.0684, 785.6, 2, 6, 1),
+    'c3h8o': Species(60.0950, 787.6, 3, 8, 1),
+    'c3h7oh': Species(60.0950, 787.6, 3, 8, 1),
+    'propanol': Species(60.0950, 787.6, 3, 8, 1),
+    'c4h10o': Species(74.1216, 794.3, 4, 10, 1),
+    'c4h9oh': Species(74.1216, 794.3, 4, 10, 1),
+    'n-butanol': Species(74.1216, 794.3, 4, 10, 1),
+    '1-butanol': Species(74.1216, 794.3, 4, 10, 1),
+    'isobutanol': Species(74.1216, 787.4, 4, 10, 1)
 }
 
 def volToMole(equil):
