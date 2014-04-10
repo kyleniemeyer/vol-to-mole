@@ -106,6 +106,8 @@ def volToMole(equil):
         for sp, Y in zip(specs, massFrac):
             X = Y / (specList[sp].mw * sumMole)
             moleFrac.append(X)
+    else:
+        moleFrac = nums[:]
     
     # calculate elements in each fuel
     print 'Mole fractions of reactants:'
