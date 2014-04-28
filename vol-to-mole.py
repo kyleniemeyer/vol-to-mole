@@ -82,8 +82,11 @@ def volToMole(equil):
                 density = specList[sp].density
             except ValueError:
                 print 'Number invalid'
+                num = None
             except KeyError:
                 print 'Error: species ' + sp + ' not found.'
+                sp = None
+                num = None
         if not sp: break
         
         # get molecular weight and density
