@@ -1,58 +1,74 @@
 #! /usr/bin/env python
+# coding: utf-8
+""" Converts hydrocarbon mixture volume fractions to mole fractions.
 
-# species densities via NIST Chemistry Webbook and Yaws' Handbook (via Knovel) 
-# at room tempetature (298 K and 1 atm)
+Unless otherwise indicated, species molecular weights and densities
+were obtained using _Yaws' Handbook of Physical Properties for
+Hydrocarbons and Chemicals_ at standard conditions (25°C and 1 atm).
+"""
 
 import readline
 from collections import namedtuple
 
 # density in units kg/m^3
-Species = namedtuple('Species', 'mw, density, numC, numH, numO')
-specList = {
-    'nc7h16': Species(100.21, 679.72, 7, 16, 0),
-    'n-heptane': Species(100.21, 679.72, 7, 16, 0),
-    'ic8h18': Species(114.23, 698.39, 8, 18, 0),
-    'iso-octane': Species(114.23, 698.39, 8, 18, 0),
-    'c6h5ch3': Species(92.14, 862.38, 7, 8, 0),
-    'toluene': Species(92.14, 862.38, 7, 8, 0),
-    'nc10h22': Species(142.28, 726.64, 10, 22, 0),
-    'n-decane': Species(142.28, 726.64, 10, 22, 0),
-    'nc12h26': Species(170.34, 745.84, 12, 26, 0),
-    'n-dodecane': Species(170.34, 745.84, 12, 26, 0),
-    'nc16h34': Species(226.441, 770.27, 16, 34, 0),
-    'n-hexadecane': Species(226.441, 770.27, 16, 34, 0),
-    'cetane': Species(226.441, 770.27, 16, 34, 0),
-    'ic16h34': Species(226.441, 793.0, 16, 34, 0),
-    'hmn': Species(226.441, 793.0, 16, 34, 0),
-    'iso-cetane': Species(226.441, 793.0, 16, 34, 0),
-    'nc9h12': Species(120.192, 859.7, 9, 12, 0),
-    'n-propylbenzene': Species(120.192, 859.7, 9, 12, 0),
-    'c6h5ch2ch2ch3': Species(120.192, 859.7, 9, 12, 0),
-    'c6h3(ch3)3': Species(120.192, 858.2, 9, 12, 0),
-    'mesitylene': Species(120.192, 858.2, 9, 12, 0),
-    'md': Species(186.291, 869.2, 11, 22, 2),
-    'methyl decanoate': Species(186.291, 869.2, 11, 22, 2),
-    'c11h22o2': Species(186.291, 869.2, 11, 22, 2),
-    'methyl caprate': Species(186.291, 869.2, 11, 22, 2),
-    'c5h10-2': Species(70.13, 650.0, 5, 10, 0),
-    '2-pentene': Species(70.13, 650.0, 5, 10, 0),
-    'c6h12-1': Species(84.1608, 673.0, 6, 12, 0),
-    '1-hexene': Species(84.1608, 673.0, 6, 12, 0),
-    'ch4o': Species(32.0419, 786.5, 1, 4, 1),
-    'ch3oh': Species(32.0419, 786.5, 1, 4, 1),
-    'methanol': Species(32.0419, 786.5, 1, 4, 1),
-    'c2h6o': Species(46.0684, 785.6, 2, 6, 1),
-    'c2h5oh': Species(46.0684, 785.6, 2, 6, 1),
-    'ethanol': Species(46.0684, 785.6, 2, 6, 1),
-    'c3h8o': Species(60.0950, 787.6, 3, 8, 1),
-    'c3h7oh': Species(60.0950, 787.6, 3, 8, 1),
-    'propanol': Species(60.0950, 787.6, 3, 8, 1),
-    'c4h10o': Species(74.1216, 794.3, 4, 10, 1),
-    'c4h9oh': Species(74.1216, 794.3, 4, 10, 1),
-    'n-butanol': Species(74.1216, 794.3, 4, 10, 1),
-    '1-butanol': Species(74.1216, 794.3, 4, 10, 1),
-    'isobutanol': Species(74.1216, 787.4, 4, 10, 1)
-}
+Species = namedtuple('Species', 'mw, CAS, density, numC, numH, numO')
+spec_list = {}
+spec_list.update(dict.fromkeys(
+                ['nc7h16', 'n-heptane'], 
+                Species(100.204, '142-82-5', 682., 7, 16, 0)))
+spec_list.update(dict.fromkeys(
+                ['ic8h18', 'iso-octane', '2,2,4-trimethylpentane'], 
+                Species(114.231, '540-84-1', 69.e1, 8, 18, 0)))
+spec_list.update(dict.fromkeys(
+                ['c6h5ch3', 'toluene'], 
+                Species(92.1405, '108-88-3', 865., 7, 8, 0)))
+spec_list.update(dict.fromkeys(
+                ['nc9h12', 'n-propylbenzene'],
+                Species(120.194, '103-65-1', 86.e1, 9, 12, 0)))
+spec_list.update(dict.fromkeys(
+                ['nc10h22', 'n-decane'],
+                Species(142.285, '124-18-5', 728.0, 10, 22, 0)))
+spec_list.update(dict.fromkeys(
+                ['nc12h26', 'n-dodecane'], 
+                Species(170.338, '112-40-3', 745.0, 12, 26, 0)))
+spec_list.update(dict.fromkeys(
+                ['nc16h34', 'n-hexadecane', 'cetane'], 
+                Species(226.446, '544-76-3', 770.0, 16, 34, 0)))
+spec_list.update(dict.fromkeys(
+                ['ic16h34', 'hmn', 'iso-cetane', 
+                '2,2,4,4,6,8,8-heptamethylnonane'], 
+                Species(226.446, '4390-04-9', 772.2, 16, 34, 0)))
+spec_list.update(dict.fromkeys(
+                ['c6h3(ch3)3', 'mesitylene'],
+                Species(120.194, '108-67-8', 861., 9, 12, 0)))
+spec_list.update(dict.fromkeys(
+                ['md', 'methyl decanoate', 'c11h22o2', 'methyl caprate'], 
+                Species(186.294, '110-42-9', 873.0, 11, 22, 2)))
+spec_list.update(dict.fromkeys(
+                ['c5h10-2', '2-pentene', 'trans-2-pentene'], 
+                Species(70.1344, '646-04-8', 643., 5, 10, 0)))
+spec_list.update(dict.fromkeys(
+                ['c6h12-1', 'c6h12-1', '1-hexene'], 
+                Species(84.1613, '592-41-6', 667., 6, 12, 0)))
+
+# alcohols
+spec_list.update(dict.fromkeys(
+                ['ch4o', 'ch3oh', 'methanol', 'methyl alcohol'], 
+                Species(32.0422, '67-56-1', 787., 1, 4, 1)))
+spec_list.update(dict.fromkeys(
+                ['c2h6o', 'c2h5oh', 'ethanol', 'ethyl alcohol'], 
+                Species(46.0684, '64-17-5', 787., 2, 6, 1)))
+spec_list.update(dict.fromkeys(
+                ['c3h8o', 'c3h7oh', 'propanol', '1-propanol',
+                'propyl alcohol'], 
+                Species(60.0959, '71-23-8', 802., 3, 8, 1)))
+spec_list.update(dict.fromkeys(
+                ['c4h10o', 'c4h9oh', 'n-butanol', '1-butanol', 'isobutanol'],
+                Species(74.1228, '71-36-3', 806., 4, 10, 1)))
+spec_list.update(dict.fromkeys(
+                ['isobutanol', '2-methyl-1-propanol', 'isobutyl alcohol'],
+                Species(74.1228, '78-83-1', 797., 4, 10, 1)))
+
 
 def volToMole(equil):
     """Calculates molar fractions from volume fractions.
@@ -79,7 +95,7 @@ def volToMole(equil):
                 num = float(num)
                 
                 # check if species in list
-                density = specList[sp].density
+                density = spec_list[sp].density
             except ValueError:
                 print 'Number invalid'
                 num = None
@@ -91,7 +107,7 @@ def volToMole(equil):
         
         # get molecular weight and density
         if not equil:
-            num = num * specList[sp].density
+            num = num * spec_list[sp].density
         
         specs.append(sp)
         nums.append(num)
@@ -103,11 +119,11 @@ def volToMole(equil):
         
         sumMole = 0.0
         for sp, Y in zip(specs, massFrac):
-            sumMole = sumMole + (Y / specList[sp].mw)
+            sumMole = sumMole + (Y / spec_list[sp].mw)
         
         moleFrac = []
         for sp, Y in zip(specs, massFrac):
-            X = Y / (specList[sp].mw * sumMole)
+            X = Y / (spec_list[sp].mw * sumMole)
             moleFrac.append(X)
     else:
         moleFrac = nums[:]
@@ -120,9 +136,9 @@ def volToMole(equil):
     for sp, X in zip(specs, moleFrac):
         print '{:.4f} '.format(X) + sp
         
-        sumC = sumC + (X * specList[sp].numC)
-        sumH = sumH + (X * specList[sp].numH)
-        sumO = sumO + (X * specList[sp].numO)
+        sumC = sumC + (X * spec_list[sp].numC)
+        sumH = sumH + (X * spec_list[sp].numH)
+        sumO = sumO + (X * spec_list[sp].numO)
     
     # count O atoms
     countO = 0.5 * ((2.0 * sumC) + (0.5 * sumH) - sumO)
@@ -157,14 +173,14 @@ def moleToVol():
                 num = float(num)
                 
                 # check if species in list
-                density = specList[sp].density
+                density = spec_list[sp].density
             except ValueError:
                 print 'Number invalid'
             except KeyError:
                 print 'Error: species ' + sp + ' not found.'
         if not sp: break
         
-        #num = num / specList[sp].density
+        #num = num / spec_list[sp].density
         
         specs.append(sp)
         nums.append(num)
@@ -174,14 +190,14 @@ def moleToVol():
     
     sumMole = 0.0
     for sp, X in zip(specs, moleFrac):
-        sumMole = sumMole + (X * specList[sp].mw)
+        sumMole = sumMole + (X * spec_list[sp].mw)
     
     # get mass fraction divided by density
     massFrac = []
     for sp, X in zip(specs, moleFrac):
-        Y = (X * specList[sp].mw) / sumMole
+        Y = (X * spec_list[sp].mw) / sumMole
         
-        massFrac.append(Y / specList[sp].density)
+        massFrac.append(Y / spec_list[sp].density)
     
     volFrac = [n / sum(massFrac) for n in massFrac]
     
