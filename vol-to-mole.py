@@ -7,7 +7,9 @@ were obtained using _Yaws' Handbook of Physical Properties for
 Hydrocarbons and Chemicals_ at standard conditions (25°C and 1 atm).
 """
 
-import readline
+from __future__ import print_function, division
+
+import sys
 from collections import namedtuple
 
 # density in units kg/m^3
@@ -77,10 +79,10 @@ def volToMole(equil):
     """
     
     if equil:
-        print 'Enter species followed by mole fraction (e.g., nc7h16 0.2)'
+        print('Enter species followed by mole fraction (e.g., nc7h16 0.2)')
     else:
-        print 'Enter species followed by volume fraction (e.g., nc7h16 0.2)'
-    print 'Hit return when complete.'
+        print('Enter species followed by volume fraction (e.g., nc7h16 0.2)')
+    print('Hit return when complete.')
     
     specs = []
     nums = []
@@ -97,10 +99,10 @@ def volToMole(equil):
                 # check if species in list
                 density = spec_list[sp].density
             except ValueError:
-                print 'Number invalid'
+                print('Number invalid')
                 num = None
             except KeyError:
-                print 'Error: species ' + sp + ' not found.'
+                print('Error: species ' + sp + ' not found.')
                 sp = None
                 num = None
         if not sp: break
@@ -129,12 +131,12 @@ def volToMole(equil):
         moleFrac = nums[:]
     
     # calculate elements in each fuel
-    print 'Mole fractions of reactants:'
+    print('Mole fractions of reactants:')
     sumC = 0.0
     sumH = 0.0
     sumO = 0.0
     for sp, X in zip(specs, moleFrac):
-        print '{:.4f} '.format(X) + sp
+        print('{:.4f} '.format(X) + sp)
         
         sumC = sumC + (X * spec_list[sp].numC)
         sumH = sumH + (X * spec_list[sp].numH)
@@ -143,22 +145,22 @@ def volToMole(equil):
     # count O atoms
     countO = 0.5 * ((2.0 * sumC) + (0.5 * sumH) - sumO)
     
-    print '{:.4f} o2'.format(countO)
-    print '{:.4f} n2'.format(countO * 3.76)
+    print('{:.4f} o2'.format(countO))
+    print('{:.4f} n2'.format(countO * 3.76))
     
     # get mole fractions of products
-    print ''
-    print '{:.4f} co2'.format(sumC)
-    print '{:.4f} h2o'.format(0.5 * sumH)
-    print '{:.4f} n2'.format(countO * 3.76)
+    print('')
+    print('{:.4f} co2'.format(sumC))
+    print('{:.4f} h2o'.format(0.5 * sumH))
+    print('{:.4f} n2'.format(countO * 3.76))
 
 
 def moleToVol():
     """Calculates volume fractions from mole fractions.
     """
     
-    print 'Enter species followed by mole fraction (e.g., nc7h16 0.2)'
-    print 'Hit return when complete.'
+    print('Enter species followed by mole fraction (e.g., nc7h16 0.2)')
+    print('Hit return when complete.')
     
     specs = []
     nums = []
@@ -175,9 +177,9 @@ def moleToVol():
                 # check if species in list
                 density = spec_list[sp].density
             except ValueError:
-                print 'Number invalid'
+                print('Number invalid')
             except KeyError:
-                print 'Error: species ' + sp + ' not found.'
+                print('Error: species ' + sp + ' not found.')
         if not sp: break
         
         #num = num / spec_list[sp].density
@@ -201,14 +203,12 @@ def moleToVol():
     
     volFrac = [n / sum(massFrac) for n in massFrac]
     
-    print 'Volume fractions:'
+    print('Volume fractions:')
     for sp, n in zip(specs, volFrac):
-        print '{:.4f} '.format(n) + sp
-    
+        print('{:.4f} '.format(n) + sp)
 
 
 if __name__ == "__main__":
-    import sys
     
     if len(sys.argv) == 1:
         volToMole(False)
@@ -218,4 +218,4 @@ if __name__ == "__main__":
         elif sys.argv[1].lower() == 'volume':
             moleToVol()
     else:
-        print 'Incorrect number of arguments. Either zero or one (equil)'
+        print('Incorrect number of arguments. Either zero or one (equil)')
