@@ -17,6 +17,11 @@ Currently supports the following species:
  * methyl decanoate (md, methyl caprate, c11h22o2)
  * 2-pentene (c5h10-2)
  * 1-hexene (c6h12-1)
+ * methanol (ch3oh)
+ * ethanol (c2h5oh)
+ * propanol (c3h7oh)
+ * n-butanol (c4h9oh)
+ * isobutanol (2-methyl-1-propanol)
 
 Usage
 -------
@@ -28,7 +33,7 @@ At the prompt, enter the reactant species names and volume (or mole) fractions: 
 License
 -------
 
-`irrev_mech` is released under the modified BSD license, see LICENSE for details.
+`vol-to-mole` is released under the modified BSD license, see LICENSE for details.
 
 Author
 ------
