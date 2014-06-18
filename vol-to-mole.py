@@ -10,6 +10,7 @@ Hydrocarbons and Chemicals_ at standard conditions (25°C and 1 atm).
 from __future__ import print_function, division
 
 import sys
+import readline
 from collections import namedtuple
 
 # density in units kg/m^3
