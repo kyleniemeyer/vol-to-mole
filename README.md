@@ -1,7 +1,7 @@
 vol-to-mole
 ===========
 
-Converts volume fractions of hydrocarbon mixtures to molar fractions. Also supports calculating the equilibrium composition given reactant mole fractions. The mole fractions of the fuel components, plus oxygen and nitrogen at stoichiometric conditions, are reported as results.
+Converts volume fractions of liquid hydrocarbon mixtures to molar fractions. Also supports calculating the equilibrium composition given reactant mole fractions. The mole fractions of the fuel components, plus oxygen and nitrogen at stoichiometric conditions, are reported as results.
 
 Currently supports the following species:
 
