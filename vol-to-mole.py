@@ -48,11 +48,17 @@ spec_list.update(dict.fromkeys(
                 ['md', 'methyl decanoate', 'c11h22o2', 'methyl caprate'], 
                 Species(186.294, '110-42-9', 873.0, 11, 22, 2)))
 spec_list.update(dict.fromkeys(
+                ['c5h10-1', '1-pentene', 'n-pentene', 'amylene'], 
+                Species(70.1344, '109-67-1', 635., 5, 10, 0)))
+spec_list.update(dict.fromkeys(
                 ['c5h10-2', '2-pentene', 'trans-2-pentene'], 
                 Species(70.1344, '646-04-8', 643., 5, 10, 0)))
 spec_list.update(dict.fromkeys(
                 ['c6h12-1', 'c6h12-1', '1-hexene'], 
                 Species(84.1613, '592-41-6', 667., 6, 12, 0)))
+spec_list.update(dict.fromkeys(
+                ['mch', 'methylcyclohexane'], 
+                Species(98.1882, '108-87-2', 766., 7, 14, 0)))
 
 # alcohols
 spec_list.update(dict.fromkeys(
