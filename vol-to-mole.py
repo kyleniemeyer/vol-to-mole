@@ -59,6 +59,21 @@ spec_list.update(dict.fromkeys(
 spec_list.update(dict.fromkeys(
                 ['mch', 'methylcyclohexane'], 
                 Species(98.1882, '108-87-2', 766., 7, 14, 0)))
+spec_list.update(dict.fromkeys(
+                ['c5h12', 'pentane', 'n-pentane'], 
+                Species(72.1503, '109-66-0', 621., 5, 12, 0)))
+spec_list.update(dict.fromkeys(
+                ['c5h12-2', '2-methylbutane', 'iso-pentane'], 
+                Species(72.1503, '78-78-4', 616., 5, 12, 0)))
+spec_list.update(dict.fromkeys(
+                ['c7h16-2', '2-methylhexane', 'iso-heptane'], 
+                Species(100.204, '591-76-4', 674., 7, 16, 0)))
+spec_list.update(dict.fromkeys(
+                ['c8h18-2', '2-methylheptane'], 
+                Species(114.231, '592-27-8', 696., 8, 18, 0)))
+spec_list.update(dict.fromkeys(
+                ['c8h10', 'xylene'], 
+                Species(106.167, '1330-20-7', 862., 8, 10, 0)))
 
 # alcohols
 spec_list.update(dict.fromkeys(
@@ -72,7 +87,7 @@ spec_list.update(dict.fromkeys(
                 'propyl alcohol'], 
                 Species(60.0959, '71-23-8', 802., 3, 8, 1)))
 spec_list.update(dict.fromkeys(
-                ['c4h10o', 'c4h9oh', 'n-butanol', '1-butanol', 'isobutanol'],
+                ['c4h10o', 'c4h9oh', 'n-butanol', '1-butanol'],
                 Species(74.1228, '71-36-3', 806., 4, 10, 1)))
 spec_list.update(dict.fromkeys(
                 ['isobutanol', '2-methyl-1-propanol', 'isobutyl alcohol'],
