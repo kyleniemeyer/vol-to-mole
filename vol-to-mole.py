@@ -60,10 +60,13 @@ spec_list.update(dict.fromkeys(
                 ['mch', 'methylcyclohexane'], 
                 Species(98.1882, '108-87-2', 766., 7, 14, 0)))
 spec_list.update(dict.fromkeys(
+                ['c4h10', 'butane', 'n-butane'], 
+                Species(58.1234, '106-97-8', 573., 4, 10, 0)))
+spec_list.update(dict.fromkeys(
                 ['c5h12', 'pentane', 'n-pentane'], 
                 Species(72.1503, '109-66-0', 621., 5, 12, 0)))
 spec_list.update(dict.fromkeys(
-                ['c5h12-2', '2-methylbutane', 'iso-pentane'], 
+                ['ic5h12', 'c5h12-2', '2-methylbutane', 'iso-pentane'], 
                 Species(72.1503, '78-78-4', 616., 5, 12, 0)))
 spec_list.update(dict.fromkeys(
                 ['c7h16-2', '2-methylhexane', 'iso-heptane'], 
