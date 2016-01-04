@@ -1,5 +1,6 @@
 vol-to-mole
 ===========
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.44328.svg)](http://dx.doi.org/10.5281/zenodo.44328)
 
 Converts volume fractions of liquid hydrocarbon mixtures to molar fractions. Also supports calculating the equilibrium composition given reactant mole fractions. The mole fractions of the fuel components, plus oxygen and nitrogen at stoichiometric conditions, are reported as results.
 
@@ -42,6 +43,10 @@ License
 -------
 
 `vol-to-mole` is released under the modified BSD license, see LICENSE for details.
+
+Citation
+--------
+If you use this software as part of a scholarly publication, please cite the software directly using the DOI: [10.5281/zenodo.44328](http://dx.doi.org/10.5281/zenodo.44328)
 
 Author
 ------
